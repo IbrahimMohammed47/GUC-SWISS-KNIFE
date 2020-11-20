@@ -4,6 +4,7 @@ const clear = require('clear');
 const figlet = require('figlet');
 const inquirer = require('./inquirier.js');
 
+const modules = require("./modules")
 init()
 
 async function init() {
@@ -27,7 +28,7 @@ async function runToolsMenu() {
   const choice = await inquirer.showToolsMenu();
   switch (choice.toolsMenu) {
     case "cms_downloader": console.log("eshta 1"); break;
-    case "evaluation_roaster": console.log("eshta 2"); break;
+    case "evaluation_roaster": await modules.evaluationRoaster(); break;
     case "back": return runMainMenu();
   }
   runToolsMenu()
