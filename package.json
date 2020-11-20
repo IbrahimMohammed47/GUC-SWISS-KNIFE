@@ -16,6 +16,7 @@
     "dotenv": "^8.2.0",
     "figlet": "^1.5.0",
     "inquirer": "^7.3.3",
-    "minimist": "^1.2.5"
+    "minimist": "^1.2.5",
+    "puppeteer": "^5.5.0"
   }
 }
