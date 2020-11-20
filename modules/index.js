@@ -1,3 +1,4 @@
 module.exports = {
-  evaluationRoaster: require("./evaluation_roaster")
-}
+  evaluationRoaster: require('./evaluation_roaster'),
+  cmsDownloader: require('./cms_downloader'),
+};
