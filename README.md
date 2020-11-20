@@ -1,3 +1,3 @@
 # GUC-SWISS-KNIFE
--cms downloader
--evaluation roaster
+- cms downloader.
+- evaluation roaster.
