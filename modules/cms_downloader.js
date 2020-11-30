@@ -13,30 +13,6 @@ const pupp_options = {
   headless: true,
 };
 
-const userAuthData = {
-  username: authData.email,
-  password: authData.password,
-};
-
-const authenticateUser = () => {
-  return new Promise((resolve, reject) => {
-    httpntlm.get(
-      {
-        ...userAuthData,
-        url: 'https://cms.guc.edu.eg/apps/student/HomePageStn.aspx',
-        rejectUnauthorized: false,
-      },
-      (err, res) => {
-        console.log(
-          res.statusCode === 200
-            ? '[+] You are authorized\n============'
-            : '[!] You are not authorized. Please review your login credentials.'
-        );
-        resolve(res.statusCode === 200);
-      }
-    );
-  });
-};
 
 const navigateTo = async (page, target_link) => {
   await page.goto(target_link, {
@@ -124,7 +100,7 @@ const downloadContent = async (page, course_name, content) => {
     return new Promise((resolve, reject) => {
       httpntlm.get(
         {
-          ...userAuthData,
+          ...authData,
           url: url,
           rejectUnauthorized: false,
           binary: true,
@@ -184,16 +160,8 @@ module.exports = async () => {
   const browser = await puppeteer.launch(pupp_options);
   const page = await browser.newPage();
 
-  // 00- Authenticate User
-  console.log('[-] Authenticating...');
-  let user_auth = await authenticateUser();
-  if (!user_auth) {
-    await browser.close();
-    return;
-  }
-
   // 0- Go to CMS home page
-  await page.authenticate(userAuthData);
+  await page.authenticate(authData);
   await navigateTo(
     page,
     'https://cms.guc.edu.eg/apps/student/HomePageStn.aspx'

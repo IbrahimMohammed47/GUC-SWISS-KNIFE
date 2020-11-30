@@ -1,11 +1,17 @@
 'use strict'
 const puppeteer = require('puppeteer')
-const timeout = { timeout: 500000 }
+const timeout = {
+    timeout: 500000,
+    waitUntil: 'networkidle0',
+}
+const authData = require('./../data.json');
 
 module.exports =
     async function () {
         const browser = await puppeteer.launch({ headless: false }); // default is true
         const page = await browser.newPage();
+
+        await page.authenticate(authData);
 
         await navigate_entity(page, 'https://student.guc.edu.eg/External/Student/Staff/EvaluateStaff.aspx');
         await evaluate_entity(page, '#stfIdLst', 'https://student.guc.edu.eg/External/Student/Staff/EvaluateStaff.aspx');

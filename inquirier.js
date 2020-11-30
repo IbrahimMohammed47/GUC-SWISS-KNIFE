@@ -3,7 +3,7 @@ const inquirer = require('inquirer');
 module.exports = {
   askGUCCredentials: () => inquirer.prompt([
     {
-      name: 'email',
+      name: 'username',
       type: 'input',
       message: 'Enter your guc email address:',
       validate: function (value) {
@@ -12,7 +12,6 @@ module.exports = {
         } else {
           return 'fen el email ya liss';
         }
-
       },
     },
     {
