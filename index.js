@@ -5,11 +5,10 @@ const figlet = require('figlet');
 const inquirer = require('./inquirier.js');
 
 const modules = require('./modules');
+const { authenticateUser } = require('./helpers');
 init();
 
 async function init() {
-  // let creds = require("./data.json")
-  // console.log(creds)
   showBanner();
   runMainMenu();
 }
@@ -46,11 +45,16 @@ async function runToolsMenu() {
 
 async function runLogin() {
   clear();
-  const credentials = await inquirer.askGUCCredentials();
-
+  let isValid = false
+  let credentials;
+  while (!isValid) {
+    credentials = await inquirer.askGUCCredentials();
+    isValid = await authenticateUser(credentials);
+  }
   let data = JSON.stringify(credentials);
   fs.writeFileSync('data.json', data);
   runMainMenu();
+
 }
 
 function showBanner() {
